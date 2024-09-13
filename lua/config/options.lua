@@ -6,8 +6,8 @@ if os.getenv("WSLENV") then
   vim.g.clipboard = {
     name = 'WslClipboard',
     copy = {
-      ['+'] = 'clip.exe',
-      ['*'] = 'clip.exe',
+      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
     },
     paste = {
       ['+'] =
