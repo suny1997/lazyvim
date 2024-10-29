@@ -39,4 +39,34 @@ if os.getenv("WSLENV") then
       vim.cmd(":silent :!/mnt/d/typewriting/switch/im-select.exe 2052")
     end,
   })
+  --自动命令,去掉^M
+  -- 创建一个自动命令组
+  vim.api.nvim_create_augroup("RemoveCarriageReturn", { clear = true })
+
+  -- 在粘贴之前处理剪贴板内容
+  vim.api.nvim_create_autocmd("TextYankPost", {
+    group = "RemoveCarriageReturn",
+    callback = function()
+      if vim.v.event.operator == "p" or vim.v.event.operator == "P" then
+        local clipboard = vim.fn.getreg("+")
+        clipboard = clipboard:gsub("\r\n", "\n")
+        vim.fn.setreg("+", clipboard)
+      end
+    end,
+  })
+
+  -- 重新映射粘贴键以使用处理后的剪贴板内容
+  vim.keymap.set("n", "p", function()
+    local clipboard = vim.fn.getreg("+")
+    clipboard = clipboard:gsub("\r\n", "\n")
+    vim.fn.setreg('"', clipboard)
+    return "p"
+  end, { expr = true, silent = true })
+
+  vim.keymap.set("n", "P", function()
+    local clipboard = vim.fn.getreg("+")
+    clipboard = clipboard:gsub("\r\n", "\n")
+    vim.fn.setreg('"', clipboard)
+    return "P"
+  end, { expr = true, silent = true })
 end
