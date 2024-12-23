@@ -1,6 +1,9 @@
 return {
   "echasnovski/mini.files",
   keys = {
+    -- 禁用默认映射
+    { "<leader>fm", false },
+    { "<leader>fM", false },
     {
       "<leader>e",
       function()
