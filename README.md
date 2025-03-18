@@ -1,4 +1,4 @@
-# lazyvim
+# LazyVim
 
 ## 删除现有配置
 
@@ -12,5 +12,5 @@ rm -rf ~/.cache/nvim
 ## 克隆
 
 ``` bash
-git clone <git@github.com>:suny1997/lazyvim.git ~/.config/nvim
+git clone <git@github.com>:suny1997/lazyvim.git ~/.config/nvim 
 ```
